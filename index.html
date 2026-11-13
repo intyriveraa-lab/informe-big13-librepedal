@@ -59,13 +59,25 @@ tr.total td{font-weight:700;background:var(--trail-soft)}
 .check li{padding-left:30px;position:relative}
 .check li::before{content:"";position:absolute;left:0;top:5px;width:15px;height:15px;border:2px solid var(--trail);border-radius:3px}
 footer{padding-block:26px;color:var(--muted);font-size:14px}
-.listen-box{margin:16px 0 0;padding:14px 16px;background:var(--trail-soft);border-radius:6px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
-.listen-box span{color:var(--muted);font-size:15px}
-.listen-box audio{width:100%;margin-top:6px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--surface)}
+.listen-box{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:2px solid var(--trail);box-shadow:0 6px 20px rgba(0,0,0,.08);
+  margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));
+  padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px))}
+.listen-in{max-width:760px;margin:0 auto;display:flex;flex-wrap:wrap;gap:2px 10px;align-items:baseline}
+.listen-box strong{color:var(--trail)}
+.listen-box span{color:var(--muted);font-size:14px}
+.listen-box audio{width:100%;height:40px;margin-top:4px}
 @media print{.listen-box{display:none}}
 @media print{body{font-size:11.5pt;padding-block:0}section{padding-block:16px 4px}tr,li,.big div{break-inside:avoid}.tbl{overflow:visible}
   tr.total td,.tag,.note,.big div{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style>
+
+<div class="listen-box" role="region" aria-label="Reproductor del informe">
+  <div class="listen-in">
+    <strong>Escucha el informe</strong> <span>completo, 17 minutos, con la voz del compadre de LibrePedal</span>
+    <audio id="audio" controls preload="metadata" src="Informe-BIG13-para-Jordan.mp3"></audio>
+  </div>
+</div>
 
 <div class="wrap">
 <header>
@@ -81,10 +93,6 @@ footer{padding-block:26px;color:var(--muted);font-size:14px}
       <li>Con Ciber Stak y los tres juntos, la nota estimada es <strong>5,1 de 7</strong>. Con las mejoras pendientes puede llegar cerca de 6.</li>
       <li>Va <strong>una sola postulación</strong>: la que tenga más potencial. En el KM 7 están las dos opciones lado a lado para que las compares.</li>
     </ul>
-  </div>
-  <div class="listen-box">
-    <strong>Escúchalo</strong> <span>El informe completo leído en voz alta (17 minutos), con la voz del compadre de LibrePedal</span>
-    <audio id="audio" controls preload="metadata" src="Informe-BIG13-para-Jordan.mp3"></audio>
   </div>
   <p class="meta">Actualizado el 13-11-2026. Las notas y los valores marcados «estimado» son cálculos nuestros, no cifras oficiales.</p>
 </header>
