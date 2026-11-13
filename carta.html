@@ -130,7 +130,7 @@ function ajustar(){var r=cv.getBoundingClientRect(),d=window.devicePixelRatio||1
   if(img){var i=new Image();i.onload=function(){ctx.drawImage(i,0,0,r.width,r.height)};i.src=img;}}
 ajustar();window.addEventListener('resize',ajustar);
 function pos(e){var r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
-cv.addEventListener('pointerdown',function(e){dibujando=true;last=pos(e);cv.setPointerCapture(e.pointerId);e.preventDefault()});
+cv.addEventListener('pointerdown',function(e){if(!cv.width||!cv.height)ajustar();dibujando=true;last=pos(e);cv.setPointerCapture(e.pointerId);e.preventDefault()});
 cv.addEventListener('pointermove',function(e){if(!dibujando)return;var p=pos(e);ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p;
   if(!firmado){firmado=true;$('hint').style.display='none'}});
 ['pointerup','pointercancel','pointerleave'].forEach(function(t){cv.addEventListener(t,function(){dibujando=false})});
@@ -178,16 +178,32 @@ function generar(){
   parrafo('Esta carta expresa una intención y no obliga a ninguna de las partes a pagar ni a contratar. Autorizo a Ciber Stak SpA a presentar esta carta en su postulación a Start-Up Chile (Corfo), y a que Corfo me contacte para confirmarla.',9.5);y+=2;
   titulo('3. Quien firma');
   fila('Nombre',val('nombre'));fila('RUT',val('rut'));fila('Cargo',val('cargo'));
+  var firmaImg=cv.width&&cv.height?cv.toDataURL('image/png'):'';
+  if(firmaImg.indexOf('data:image/png')!==0)throw new Error('la firma no quedó guardada; bórrala y vuelve a firmar');
   var fy=Math.max(y+4,0),fh=26,fw=fh*cv.width/cv.height;if(fw>80){fw=80;fh=fw*cv.height/cv.width}
   if(fy+fh+16>270){doc.addPage();fy=25}
-  doc.addImage(cv.toDataURL('image/png'),'PNG',(W-fw)/2,fy,fw,fh);
+  doc.addImage(firmaImg,'PNG',(W-fw)/2,fy,fw,fh);
   doc.setDrawColor(27,33,48);doc.setLineWidth(.3);doc.line(W/2-40,fy+fh+1,W/2+40,fy+fh+1);
   doc.setFontSize(9.5);doc.text('Firma de '+val('nombre'),W/2,fy+fh+6,{align:'center'});
   doc.setFontSize(8);doc.setTextColor(92,101,119);doc.text('Firmada digitalmente el '+new Date().toLocaleString('es-CL')+' en el formulario de LibrePedal App.',W/2,272,{align:'center'});
   pdfBlob=doc.output('blob');
   pdfNombre='Carta-intencion-LibrePedal-'+val('negocio').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40)+'.pdf';
 }
-function descargar(){var a=document.createElement('a');a.href=URL.createObjectURL(pdfBlob);a.download=pdfNombre;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},2000)}
+// En la app instalada (WebView de Android) no hay descargas ni navigator.share propio: compartir-nativo.js
+// los implementa con los plugins de la app. En el navegador se usa lo normal.
+function enApp(){try{return !!(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform())}catch(e){return false}}
+function descargarWeb(){var a=document.createElement('a');a.href=URL.createObjectURL(pdfBlob);a.download=pdfNombre;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},2000)}
+function descargar(){
+  var FS=(enApp()&&typeof lpPlugin==='function')?lpPlugin('Filesystem'):null;
+  if(FS&&typeof _cnEscribir==='function'){
+    Promise.resolve(FS.requestPermissions?FS.requestPermissions().catch(function(){}):null)
+      .then(function(){return _cnEscribir(FS,'LibrePedal/'+pdfNombre,pdfBlob,'DOCUMENTS')})
+      .then(function(){alert('Carta guardada en Documentos/LibrePedal.')},function(e){alert('No se pudo guardar en el teléfono. Usa «Enviar la carta» y elige WhatsApp o «Guardar».')});
+    return;
+  }
+  if(enApp()){alert('Para guardar desde la app, actualiza Libre Pedal en Play Store, o abre este link en Chrome.');return}
+  descargarWeb();
+}
 
 $('f').addEventListener('submit',function(e){e.preventDefault();var f=validar();
   if(f.length){$('err').textContent='Falta: '+f.join(', ')+'.';return}
@@ -199,10 +215,16 @@ $('editar').onclick=function(){$('listo').style.display='none';$('f').style.disp
 $('descargar').onclick=descargar;
 $('compartir').onclick=function(){
   var file=new File([pdfBlob],pdfNombre,{type:'application/pdf'});
-  if(navigator.canShare&&navigator.canShare({files:[file]})){
-    navigator.share({files:[file],title:'Carta de intención LibrePedal App',text:'Carta de intención de '+val('negocio')+' para LibrePedal App.'}).catch(function(){});
+  var puede=false;try{puede=!!(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]}))}catch(e){}
+  if(puede){
+    navigator.share({files:[file],title:'Carta de intención LibrePedal App',text:'Carta de intención de '+val('negocio')+' para LibrePedal App.'}).catch(function(e){
+      if(e&&e.name==='AbortError')return;
+      alert('No se pudo abrir el menú para compartir. Prueba con «Descargar PDF» y adjúntala en WhatsApp.');
+    });
+  }else if(enApp()){
+    alert('Para enviar la carta desde la app, actualiza Libre Pedal en Play Store, o abre este link en Chrome.');
   }else{
-    descargar();
+    descargarWeb();
     alert('Se descargó tu carta en PDF. Adjúntala en WhatsApp o en un correo y envíala de vuelta a quien te mandó este link.');
   }};
 })();
