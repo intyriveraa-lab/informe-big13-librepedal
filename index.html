@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><style>:root{color-scheme:light}body{margin:0}img{max-width:100%}</style></head><body>
+<title>Informe BIG 13 para Jordan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: hoja de ruta de una columna; cada sección es un tramo (KM), tablas de plata con cifras alineadas */
+:root{
+  --bg:#f3f5f1; --surface:#ffffff; --fg:#1d2420; --muted:#5d6a62; --line:#d6ddd6;
+  --accent:#d9541e; --accent-ink:#ffffff; --trail:#2f6b4f; --trail-soft:#e3eee7; --warn-soft:#fbe9df;
+  --font-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --font-body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121614; --surface:#1b211e; --fg:#e8eee9; --muted:#9aa89f; --line:#2f3833;
+  --accent:#f07a45; --accent-ink:#1a0f09; --trail:#7fc4a0; --trail-soft:#1f2e26; --warn-soft:#33221a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121614; --surface:#1b211e; --fg:#e8eee9; --muted:#9aa89f; --line:#2f3833;
+  --accent:#f07a45; --accent-ink:#1a0f09; --trail:#7fc4a0; --trail-soft:#1f2e26; --warn-soft:#33221a; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 60px}
+.wrap{max-width:760px;margin:0 auto}
+header{padding-block:40px 24px;border-bottom:2px solid var(--fg)}
+.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--trail);font-weight:700}
+h1{font-family:var(--font-display);font-weight:800;font-size:clamp(30px,6vw,44px);line-height:1.08;margin:.3em 0 .4em;text-wrap:balance}
+h2{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,4vw,28px);line-height:1.2;margin:0;text-wrap:balance}
+h3{font-family:var(--font-display);font-weight:600;font-size:19px;margin:22px 0 8px}
+.lead{font-size:19px;max-width:62ch;margin:0}
+.meta{color:var(--muted);font-size:14px;margin-top:14px}
+.summary{margin:22px 0 0;padding:18px 20px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.summary ul{margin:0}
+section{padding-block:34px 8px;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.km{font-family:var(--font-display);font-weight:800;color:var(--trail);font-size:14px;letter-spacing:.06em;min-width:52px}
+.sec-head h2{flex:1 1 260px;min-width:0}
+p{margin:0 0 14px;max-width:66ch}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin-bottom:8px;max-width:64ch}
+.tbl{overflow-x:auto;margin:6px 0 18px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:15.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+th{font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700}
+tr:last-child td{border-bottom:0}
+tr.total td{font-weight:700;background:var(--trail-soft)}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;padding:1px 8px;border-radius:999px;white-space:nowrap}
+.tag.ok{background:var(--trail-soft);color:var(--trail)}
+.tag.est{background:var(--warn-soft);color:var(--accent)}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:8px 0 20px}
+.big div{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;min-width:0}
+.big b{display:block;font-family:var(--font-display);font-weight:800;font-size:26px;font-variant-numeric:tabular-nums;line-height:1.15}
+.big span{font-size:14px;color:var(--muted)}
+.note{background:var(--warn-soft);border-radius:6px;padding:14px 16px;margin:4px 0 18px}
+.note p:last-child{margin-bottom:0}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:var(--trail);word-break:break-word}
+.check{list-style:none;padding-left:0}
+.check li{padding-left:30px;position:relative}
+.check li::before{content:"";position:absolute;left:0;top:5px;width:15px;height:15px;border:2px solid var(--trail);border-radius:3px}
+footer{padding-block:26px;color:var(--muted);font-size:14px}
+.listen-box{margin:16px 0 0;padding:14px 16px;background:var(--trail-soft);border-radius:6px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+.listen-box span{color:var(--muted);font-size:15px}
+.listen-box audio{width:100%;margin-top:6px}
+@media print{.listen-box{display:none}}
+@media print{body{font-size:11.5pt;padding-block:0}section{padding-block:16px 4px}tr,li,.big div{break-inside:avoid}.tbl{overflow:visible}
+  tr.total td,.tag,.note,.big div{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Start-Up Chile · BIG 13 · Línea Build</div>
+  <h1>Todo lo que reunimos sobre BIG 13 y LibrePedal App</h1>
+  <p class="lead">Jordan: aquí está todo lo investigado, lo que se ha gastado en la app, las horas de trabajo y lo que puede rendir una postulación de Ciber Stak. Vamos a hacer una sola postulación, la que tenga más potencial; al final están las dos opciones comparadas, para que las revises y decidamos juntos.</p>
+  <div class="summary">
+    <strong>Resumen corto</strong>
+    <ul>
+      <li>BIG 13 da hasta <strong>$15 millones</strong> para 4 meses. Cierra el <strong>24-11-2026 a las 13:00</strong>. Ganan entre el 5 y el 7 % de los que postulan.</li>
+      <li>LibrePedal App lleva <strong>entre $2.115.000 y $2.255.000 invertidos</strong>: entre $865.000 y $1.005.000 en gastos desde julio (según si la oficina es el 30 o el 40 % del arriendo) más el notebook de trabajo de $1.250.000, y falta sumar la energía. Además lleva <strong>más de 1.000 horas de trabajo</strong>.</li>
+      <li><strong>El líder tiene trayectoria:</strong> Inty es técnico en energías renovables y fundó ControlSolar, una empresa de energía solar con automatización y sensores que llevó 5 años. Eso suma en Equipo y en la entrevista.</li>
+      <li>Con Ciber Stak y los tres juntos, la nota estimada es <strong>5,1 de 7</strong>. Con las mejoras pendientes puede llegar cerca de 6.</li>
+      <li>Va <strong>una sola postulación</strong>: la que tenga más potencial. En el KM 7 están las dos opciones lado a lado para que las compares.</li>
+    </ul>
+  </div>
+  <div class="listen-box">
+    <strong>Escúchalo</strong> <span>El informe completo leído en voz alta (17 minutos), con la voz del compadre de LibrePedal</span>
+    <audio id="audio" controls preload="metadata" src="Informe-BIG13-para-Jordan.mp3"></audio>
+  </div>
+  <p class="meta">Actualizado el 13-11-2026. Las notas y los valores marcados «estimado» son cálculos nuestros, no cifras oficiales.</p>
+</header>
+
+<section>
+  <div class="sec-head"><span class="km">KM 0</span><h2>El fondo y cómo evalúa</h2></div>
+  <ul>
+    <li><strong>Qué es:</strong> Start-Up Chile de Corfo, línea Build. Hasta $15 millones sin entregar acciones. Corfo pone el 90 % y la empresa el 10 % (unos $1.670.000).</li>
+    <li><strong>Para quién:</strong> empresas de software o base tecnológica con inicio comercial en los últimos 12 meses. El líder debe tener al menos el 10 % de la empresa y dedicarse en exclusiva 4 meses, viviendo en Chile.</li>
+    <li><strong>Regla de una sola postulación:</strong> cada empresa, proyecto y persona (líder o ejecutor) puede estar en una sola. Si alguien aparece en dos, vale solo la última enviada.</li>
+    <li><strong>Regla de los 12 meses:</strong> si un proyecto Build gana, sus ejecutores esperan 12 meses desde que termina para postular a Build, Ignite o Semilla. Sercotec y los fondos regionales o municipales no tienen esa espera.</li>
+  </ul>
+  <h3>Cómo se pone la nota (de 1 a 7)</h3>
+  <div class="tbl"><table>
+    <tr><th>Etapa</th><th>Qué mira</th><th class="n">Peso</th></tr>
+    <tr><td rowspan="7">1 · Formulario</td><td>Equipo</td><td class="n">20 %</td></tr>
+    <tr><td>Mercado</td><td class="n">15 %</td></tr>
+    <tr><td>Producto</td><td class="n">15 %</td></tr>
+    <tr><td>Escalabilidad</td><td class="n">15 %</td></tr>
+    <tr><td>Estrategia de crecimiento</td><td class="n">15 %</td></tr>
+    <tr><td>Tracción</td><td class="n">10 %</td></tr>
+    <tr><td>Impacto en Chile</td><td class="n">10 %</td></tr>
+    <tr><td rowspan="4">2 · Entrevista al líder</td><td>El líder</td><td class="n">30 %</td></tr>
+    <tr><td>Base tecnológica</td><td class="n">20 a 30 %</td></tr>
+    <tr><td>Problema</td><td class="n">20 %</td></tr>
+    <tr><td>Alcance en Chile</td><td class="n">20 a 30 %</td></tr>
+  </table></div>
+  <p>Hay que sacar al menos 4,0 en Equipo, en Producto y en el total para pasar a la entrevista. La nota final es el promedio de las dos etapas. El sello de la Ley 21.561 suma un 5 % extra.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">KM 1</span><h2>Lo que muestran los proyectos que ya ganaron</h2></div>
+  <p>Revisamos las convocatorias BIG 9 a BIG 12 con las publicaciones de Start-Up Chile y la prensa.</p>
+  <div class="tbl"><table>
+    <tr><th>Convocatoria</th><th class="n">Postularon</th><th class="n">Seleccionadas</th><th>Dato</th></tr>
+    <tr><td>BIG 9</td><td class="n">~900</td><td class="n">64 a 68</td><td></td></tr>
+    <tr><td>BIG 10</td><td class="n">964</td><td class="n">62</td><td></td></tr>
+    <tr><td>BIG 11</td><td class="n">1.337</td><td class="n">64</td><td>~45 % usa IA · 68 % líderes chilenos</td></tr>
+    <tr><td>BIG 12</td><td class="n">1.296</td><td class="n">59</td><td>~60 % usa IA · 64 % líderes chilenos</td></tr>
+  </table></div>
+  <ul>
+    <li><strong>En Build ganan unas 17 o 18 startups por convocatoria.</strong> En total gana entre el 5 y el 7 % de los que postulan.</li>
+    <li><strong>La mayoría vende a empresas</strong> (software B2B). De cada 18 ganadores de Build, unos 6 a 8 venden directo a personas, como LibrePedal (cálculo nuestro, leyendo las descripciones).</li>
+    <li><strong>Ganadores parecidos a nosotros:</strong> Tripsy (viajes con itinerario por IA, BIG 11), Natik (estadías ecológicas, BIG 10), KidsFin (app de finanzas para niños, BIG 11), Carriapp (comparador de supermercados, BIG 10), Nouu (tareas entre personas, BIG 10) y Kini (rehabilitación remota con visión por computador, BIG 12).</li>
+    <li><strong>No encontramos ningún ganador de Build de ciclismo o movilidad.</strong> Es un espacio libre, aunque nadie ha probado que ahí se gane.</li>
+    <li><strong>Competencia en Chile:</strong> Bikleta (unos 20.000 usuarios en Argentina y Chile, levantó unos $380 millones) y Bikfy (más de 13.000 bicicletas registradas, levantó unos $475 millones). Ninguna junta navegación con voz, seguridad, pelotón y servicios como LibrePedal App.</li>
+    <li><strong>Lo que no se publica:</strong> el tamaño del equipo, la tracción ni la región de cada ganador. No hay datos de ganadores fuera de Santiago.</li>
+  </ul>
+  <p class="src">Fuentes: <a href="https://startupchile.org/postula/build/">startupchile.org/postula/build</a> · <a href="https://startupchile.org/blog/big-12-descubre-las-startups-seleccionadas20094-2/">Start-Up Chile, seleccionadas BIG 12</a> · <a href="https://ecosistemastartup.com/start-up-chile-big-12-59-startups-con-60-en-ia/">EcoSistema Startup</a> · <a href="https://eldesconcierto.cl/2026/02/02/corfo-selecciona-64-startups-para-nueva-generacion-18-se-enfoca-en-agricultura-y-casi-la-mitad-usa-inteligencia-artificial/amp">El Desconcierto</a> · <a href="https://www.df.cl/df-lab/innovacion-y-startups/bikleta-la-app-argentina-que-busca-crear-un-ecosistema-para-los-ciclistas">DF, Bikleta</a></p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">KM 2</span><h2>Qué es hoy LibrePedal App</h2></div>
+  <h3>Línea de tiempo</h3>
+  <div class="tbl"><table>
+    <tr><th>Fecha</th><th>Hito</th></tr>
+    <tr><td>29-06-2026</td><td>Primer código de la app</td></tr>
+    <tr><td>30-06-2026</td><td>Primer usuario externo. Es el inicio comercial que se declara.</td></tr>
+    <tr><td>12-07-2026</td><td>Primeras cuentas de usuarios</td></tr>
+    <tr><td>Agosto 2026</td><td>Prueba cerrada con ciclistas</td></tr>
+    <tr><td>02-09-2026</td><td>Se constituye Ciber Stak SpA</td></tr>
+    <tr><td>9 al 12-10-2026</td><td>Segunda edición del EBM, con la comunidad de LibrePedal</td></tr>
+    <tr><td>19-10-2026</td><td>La app sale en Google Play</td></tr>
+    <tr><td>26-10-2026</td><td>Suscripción creada: $3.000 al mes o $30.000 al año</td></tr>
+  </table></div>
+  <h3>Lo que ya hace</h3>
+  <ul>
+    <li><strong>Navegación con voz:</strong> Pistero, un guía con IA. Funciona sin señal con rutas GPX de Strava, Wikiloc o Komoot.</li>
+    <li><strong>Seguridad:</strong> detección de caídas, SOS con ubicación y SOS anónimo a ciclistas de confianza cercanos.</li>
+    <li><strong>Pelotón:</strong> salas de hasta 30 ciclistas con mapa en vivo, radio de voz y seguimiento para la familia.</li>
+    <li><strong>Salud:</strong> pulsómetro y potenciómetro por Bluetooth.</li>
+    <li><strong>Servicios:</strong> guía de taller por síntoma, hospedajes, campings, «te doy alojo», negocios y rodadas. Está lista para 14 países.</li>
+  </ul>
+  <div class="big">
+    <div><b>1.664</b><span>usuarios desde el 30-06 (148 con cuenta)</span></div>
+    <div><b>1.525 km</b><span>registrados en la app</span></div>
+    <div><b>62 / 22</b><span>instalaciones en Google Play / activos al mes</span></div>
+    <div><b>0</b><span>suscriptores pagando hasta hoy</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">KM 3</span><h2>El líder: la trayectoria que suma</h2></div>
+  <p>LibrePedal App no es el primer emprendimiento de Inty. Las bases piden «logros demostrables» del líder, y esto pesa en tres lugares de la nota: Equipo (20 % del formulario), Líder (30 % de la entrevista) y el desempate, que se decide justamente por la nota del líder.</p>
+  <div class="tbl"><table>
+    <tr><th>Año</th><th>Qué</th><th>Por qué suma</th></tr>
+    <tr><td>2018</td><td>Técnico en Energías Renovables No Convencionales y Eficiencia Energética, Duoc UC</td><td>Formación técnica en energía, electricidad y medición</td></tr>
+    <tr><td>2019 a 2024</td><td>Fundador de <strong>ControlSolar</strong>: empresa de energía fotovoltaica, con automatización, sensores y monitoreo de sistemas</td><td>Cinco años al frente de una pyme tecnológica con clientes. Muestra que sabe emprender, vender y sostener una empresa.</td></tr>
+    <tr><td>2026</td><td>Fundador de <strong>Ciber Stak SpA</strong> y desarrollador de LibrePedal App</td><td>Construyó la app completa: 2.243 cambios al código en 93 días, publicada en Google Play</td></tr>
+  </table></div>
+  <h3>La conexión con LibrePedal App</h3>
+  <p>La experiencia en automatización y sensores de ControlSolar es la misma base técnica de varias funciones de la app, y sirve para la nota de «base tecnológica» (20 % de la entrevista):</p>
+  <ul>
+    <li><strong>Detección de caídas:</strong> lee los sensores de movimiento del teléfono y decide cuándo activar el SOS.</li>
+    <li><strong>Pulsómetro y potenciómetro:</strong> se conectan por Bluetooth y avisan aunque la pantalla esté apagada.</li>
+    <li><strong>GPS y navegación sin señal:</strong> el teléfono mide la ruta en tiempo real y Pistero habla según lo que mide.</li>
+  </ul>
+  <p>En ControlSolar eran paneles e inversores; en LibrePedal son el teléfono y los sensores de la bicicleta. Es la misma lógica: medir, automatizar y avisar a tiempo.</p>
+  <div class="note">
+    <p><strong>Solo lo que se pueda demostrar.</strong> La constitución de ControlSolar en el Registro de Empresas sirve de prueba. Si decimos «con clientes», hay que tener facturas, contratos o fotos de instalaciones. Ninguna empresa de Inty recibió fondos Corfo, así que nada lo inhabilita.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">KM 4</span><h2>Horas de trabajo en la app</h2></div>
+  <p>Las horas salen del historial del código, que registra cada cambio con fecha y hora.</p>
+  <div class="tbl"><table>
+    <tr><th>Medida</th><th class="n">Valor</th></tr>
+    <tr><td>Cambios al código en los primeros 93 días (29-06 al 30-09)</td><td class="n">2.243</td></tr>
+    <tr><td>Dedicación semanal medida</td><td class="n">55 a 60 h</td></tr>
+    <tr><td>Horas en esos 93 días</td><td class="n">730 a 800 h</td></tr>
+    <tr><td>Horas desde el 29-06 hasta hoy (unas 19,5 semanas)</td><td class="n">1.080 a 1.175 h</td></tr>
+    <tr class="total"><td>Valor de referencia de ese tiempo <span class="tag est">estimado</span></td><td class="n">~$5.850.000</td></tr>
+  </table></div>
+  <p class="src">El valor de referencia supone 4,5 meses al sueldo máximo que permite el fondo para el líder ($1,3 millones líquidos al mes). Es tiempo puesto, no plata pagada. Nadie ha cobrado sueldo: todo el trabajo ha sido autogestionado.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">KM 5</span><h2>Gastos acumulados: el compromiso detrás de la app</h2></div>
+  <div class="note"><p><strong>Para qué sirven estas cifras:</strong> para validar el compromiso que hay detrás de LibrePedal App. Nada de esto ha sido remunerado. Todo es autogestión: sin sueldos, sin inversionistas y sin fondos públicos. La plata, el equipo y las horas los ha puesto el equipo de su bolsillo.</p></div>
+  <p>Todo lo ha pagado Inty. La tabla separa lo que tiene boleta de lo que está estimado. Todo va en pesos chilenos; lo que se pagó en dólares se pasó a $950 por dólar.</p>
+  <h3>Con boleta</h3>
+  <div class="tbl"><table>
+    <tr><th>Gasto</th><th>Período</th><th class="n">Monto</th></tr>
+    <tr><td>IA para programar (Claude, 3 cuentas)</td><td>jun a nov 2026</td><td class="n">$163.923</td></tr>
+    <tr><td>Voz de la app (ElevenLabs)</td><td>ago a oct 2026</td><td class="n">$68.961</td></tr>
+    <tr><td>Cuenta de desarrollador de Google Play</td><td>10-07-2026, pago único</td><td class="n">$23.750</td></tr>
+    <tr><td>Línea móvil para pruebas (Entel)</td><td>abr a oct 2026</td><td class="n">$103.723</td></tr>
+    <tr><td>Google Cloud</td><td>total</td><td class="n">$23</td></tr>
+    <tr class="total"><td>Subtotal con boleta</td><td></td><td class="n">$360.380</td></tr>
+  </table></div>
+  <h3>Sin boleta todavía <span class="tag est">estimado</span></h3>
+  <div class="tbl"><table>
+    <tr><th>Gasto</th><th>Cálculo</th><th class="n">Monto</th></tr>
+    <tr><td>Pieza usada como oficina</td><td>30 a 40 % de un arriendo de $280.000 = $84.000 a $112.000 al mes × 5 meses (jul a nov)</td><td class="n">$420.000 a $560.000</td></tr>
+    <tr><td>Internet fijo</td><td>$15.000 al mes × 5 meses</td><td class="n">$75.000</td></tr>
+    <tr><td>Dominio librepedal.cl (NIC Chile)</td><td>1 año, pagado en julio</td><td class="n">~$9.950</td></tr>
+    <tr><td>Energía</td><td>por completar</td><td class="n">—</td></tr>
+    <tr class="total"><td>Subtotal estimado</td><td></td><td class="n">$504.950 a $644.950</td></tr>
+  </table></div>
+  <h3>Equipo de trabajo</h3>
+  <div class="tbl"><table>
+    <tr><th>Equipo</th><th>Detalle</th><th class="n">Monto</th></tr>
+    <tr><td>Notebook Thunderobot R15</td><td>Intel Core i7-13650HX, RTX 4060, 16 GB. Comprado en Falabella para trabajar en la app. Hoy Falabella lo vende entre $1.159.990 y $1.299.990.</td><td class="n">~$1.250.000</td></tr>
+  </table></div>
+  <div class="big">
+    <div><b>$865.000 a $1.005.000</b><span>gastos desde julio, más la energía</span></div>
+    <div><b>$1.250.000</b><span>notebook de trabajo</span></div>
+    <div><b>$2.115.000 a $2.255.000</b><span>total invertido en la app</span></div>
+    <div><b>$206.000 a $234.000</b><span>cuesta operar la app cada mes hoy</span></div>
+  </div>
+  <p class="src">El valor exacto del notebook sale de la boleta de Falabella; hay que buscarla.</p>
+  <p>Los servidores cuestan $0 porque usan planes gratis con margen para crecer. Cloudflare usa unas 3.500 de 100.000 solicitudes diarias.</p>
+  <h3>Gastos de Jordan y de Vicente</h3>
+  <div class="tbl"><table>
+    <tr><th>Quién</th><th>Qué puso</th><th>Respaldo</th><th class="n">Monto</th></tr>
+    <tr><td>Jordan</td><td>Traslados, materiales y coordinación de las dos ediciones del EBM</td><td>Caja del EBM y transferencias</td><td class="n">por completar</td></tr>
+    <tr><td>Vicente</td><td>Viaje probando la app en ruta, fotos y video</td><td>Gastos del viaje, fotos con fecha</td><td class="n">por completar</td></tr>
+  </table></div>
+  <p>El EBM se autofinanció con inscripciones y auspicios, y dejó un pequeño excedente.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">KM 6</span><h2>Qué de todo esto se puede presentar</h2></div>
+  <div class="note">
+    <p><strong>Lo gastado antes de ganar no se devuelve ni cuenta como aporte.</strong> Las bases solo cuentan el aporte que se hace durante el proyecto. Aun así, los $2.115.000 a $2.255.000 invertidos (con el notebook) y las más de 1.000 horas se muestran en la postulación como prueba de compromiso, en el párrafo de inversión propia.</p>
+  </div>
+  <p><strong>Desde que se firme el convenio, sí cuenta como aporte de la empresa el 10 % (~$1.670.000).</strong> Se puede cubrir así durante los 4 meses:</p>
+  <div class="tbl"><table>
+    <tr><th>Aporte valorizado</th><th>Cálculo</th><th class="n">Monto</th></tr>
+    <tr><td>Oficina (30 a 40 % del arriendo)</td><td>$84.000 a $112.000 × 4 meses</td><td class="n">$336.000 a $448.000</td></tr>
+    <tr><td>Internet</td><td>$15.000 × 4 meses</td><td class="n">$60.000</td></tr>
+    <tr><td>Línea móvil de pruebas</td><td>~$14.800 × 4 meses</td><td class="n">$59.200</td></tr>
+    <tr><td>Uso del notebook</td><td>4 meses de su vida útil</td><td class="n">$70.000 a $210.000</td></tr>
+    <tr><td>Horas de quien trabaje sin sueldo</td><td>lo que falte para llegar al 10 %</td><td class="n">~$890.000 a $1.145.000</td></tr>
+    <tr class="total"><td>Total</td><td></td><td class="n">~$1.670.000</td></tr>
+  </table></div>
+  <p class="src">El porcentaje de oficina y la valorización del notebook hay que validarlos con un contador.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">KM 7</span><h2>Una sola postulación: cuál tiene más potencial</h2></div>
+  <p>Comparamos las dos formas posibles de hacer la única postulación, con el mismo equipo en ambas (Inty, Jordan y Vicente) y la pauta oficial de 1 a 7.</p>
+  <div class="tbl"><table>
+    <tr><th></th><th>A · Ciber Stak, líder Inty</th><th>B · LibrePedal SpA (taller), líder Jordan</th></tr>
+    <tr><td>Nota estimada</td><td><strong>5,1</strong>; cerca de 6 con las mejoras</td><td><strong>4,3</strong></td></tr>
+    <tr><td>Pasa los filtros de entrada</td><td>Sí</td><td>En riesgo: el giro es reparar y vender bicicletas, no software</td></tr>
+    <tr><td>Inicio comercial</td><td>30-06-2026, dentro de los 12 meses</td><td>Cuenta desde la primera venta del taller; si fue hace más de 12 meses, queda fuera</td></tr>
+    <tr><td>Dueño de la app</td><td>Sí</td><td>No: habría que licenciarla desde Ciber Stak</td></tr>
+    <tr><td>Exclusividad del líder 4 meses</td><td>Inty ya trabaja en la app a tiempo completo</td><td>Jordan tendría que dejar de atender el taller</td></tr>
+    <tr><td>Papeles y registros</td><td>Listos; SII, Registro de Empresas, Google Play y Firebase coinciden</td><td>Habría que empezar</td></tr>
+    <tr><td>Trayectoria del líder</td><td>Técnico en ERNC; fundó ControlSolar (energía solar, automatización y sensores) y la llevó 5 años; desarrolló la app</td><td>Taller Libre Pedal y creador del EBM</td></tr>
+    <tr><td>Donde es más fuerte</td><td>Equipo, producto y escalabilidad</td><td>Tracción: el taller ya vende</td></tr>
+    <tr><td>Rol de Jordan</td><td>Ejecutor: comunidad, eventos y alianzas (EBM y red de talleres)</td><td>Líder</td></tr>
+  </table></div>
+  <p><strong>Con estos datos, la opción A tiene más potencial:</strong> pasa los filtros con seguridad y saca mejor nota. La idea de Jordan de llevar ciclistas a los talleres y los viajes entra en la opción A como red de talleres y comunidad. Si al revisar ves algo que cambie la comparación, lo sumamos antes de decidir.</p>
+  <p class="src">En cualquiera de las dos, quienes sean ejecutores de un Build ganado esperan 12 meses para postular a Build, Ignite o Semilla. Sercotec y los fondos regionales no tienen esa espera.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">META</span><h2>Lo que falta y las fechas</h2></div>
+  <ul class="check">
+    <li><strong>17-11:</strong> Jordan revisa la comparación y envía sus datos: apellidos, nacionalidad, estudios, años de experiencia y horas por semana.</li>
+    <li><strong>Gastos por completar:</strong> los de Jordan (EBM) y los de Vicente (viaje), y la energía y el monto exacto del dominio de Inty.</li>
+    <li><strong>Cartas de interés</strong> de talleres, hospedajes y auspiciadores que pagarían una cuota anual de unos $10.000.</li>
+    <li><strong>Primeros suscriptores pagando,</strong> un mentor y alguien externo que recomiende el proyecto.</li>
+    <li><strong>Video de 90 segundos</strong> con la app funcionando en ruta.</li>
+    <li><strong>23-11:</strong> envío de la postulación, un día antes del cierre.</li>
+  </ul>
+</section>
+
+<footer>Preparado por Inty Rivera para Jordan, 13-11-2026. Reglas tomadas de las bases de Start-Up Chile (texto refundido, noviembre de 2026). Las notas, los valores de referencia y los gastos marcados como estimados son cálculos del equipo.</footer>
+</div>
+
+</body></html>
