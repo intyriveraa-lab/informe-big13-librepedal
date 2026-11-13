@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><style>:root{color-scheme:light}body{margin:0}img{max-width:100%}</style></head><body>
+<title>Comparativa plan de Jordan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: hoja de ruta de una columna; tramos (KM), tablas suma/resta con marcas de estado */
+:root{
+  --bg:#f3f5f1; --surface:#ffffff; --fg:#1d2420; --muted:#5d6a62; --line:#d6ddd6;
+  --accent:#d9541e; --accent-ink:#ffffff; --trail:#2f6b4f; --trail-soft:#e3eee7; --warn-soft:#fbe9df;
+  --bad:#b3261e; --bad-soft:#f9e1df;
+  --font-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --font-body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121614; --surface:#1b211e; --fg:#e8eee9; --muted:#9aa89f; --line:#2f3833;
+  --accent:#f07a45; --accent-ink:#1a0f09; --trail:#7fc4a0; --trail-soft:#1f2e26; --warn-soft:#33221a;
+  --bad:#f2958c; --bad-soft:#3a1d1b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121614; --surface:#1b211e; --fg:#e8eee9; --muted:#9aa89f; --line:#2f3833;
+  --accent:#f07a45; --accent-ink:#1a0f09; --trail:#7fc4a0; --trail-soft:#1f2e26; --warn-soft:#33221a;
+  --bad:#f2958c; --bad-soft:#3a1d1b; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 60px}
+.wrap{max-width:780px;margin:0 auto}
+header{padding-block:40px 24px;border-bottom:2px solid var(--fg)}
+.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--trail);font-weight:700}
+h1{font-family:var(--font-display);font-weight:800;font-size:clamp(30px,6vw,44px);line-height:1.08;margin:.3em 0 .4em;text-wrap:balance}
+h2{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,4vw,28px);line-height:1.2;margin:0;text-wrap:balance}
+h3{font-family:var(--font-display);font-weight:600;font-size:19px;margin:22px 0 8px}
+.lead{font-size:19px;max-width:62ch;margin:0}
+.meta{color:var(--muted);font-size:14px;margin-top:14px}
+.north{margin:22px 0 0;padding:18px 20px;background:var(--accent);color:var(--accent-ink);border-radius:6px}
+.north b{display:block;font-family:var(--font-display);font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.north p{margin:0;font-size:19px;font-weight:600;max-width:none}
+.summary{margin:16px 0 0;padding:18px 20px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.summary ul{margin:0}
+section{padding-block:34px 8px;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.km{font-family:var(--font-display);font-weight:800;color:var(--trail);font-size:14px;letter-spacing:.06em;min-width:52px}
+.sec-head h2{flex:1 1 260px;min-width:0}
+p{margin:0 0 14px;max-width:66ch}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin-bottom:8px;max-width:64ch}
+.tbl{overflow-x:auto;margin:6px 0 18px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:15.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700}
+tr:last-child td{border-bottom:0}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;padding:1px 8px;border-radius:999px;white-space:nowrap}
+.tag.ok{background:var(--trail-soft);color:var(--trail)}
+.tag.mid{background:var(--warn-soft);color:var(--accent)}
+.tag.bad{background:var(--bad-soft);color:var(--bad)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:6px 0 18px}
+.col{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px;min-width:0}
+.col h3{margin-top:0}
+.col.plus h3{color:var(--trail)} .col.minus h3{color:var(--bad)}
+.col ul{margin:0;padding-left:20px}
+.note{background:var(--warn-soft);border-radius:6px;padding:14px 16px;margin:4px 0 18px}
+.note p:last-child{margin-bottom:0}
+.alert{background:var(--bad-soft);border-radius:6px;padding:14px 16px;margin:4px 0 18px}
+.alert p:last-child{margin-bottom:0}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:var(--trail)}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:6px 0 18px}
+.pillars div{background:var(--trail-soft);border-radius:6px;padding:14px 16px;min-width:0}
+.pillars b{display:block;font-family:var(--font-display);font-size:17px;margin-bottom:4px}
+.pillars span{font-size:15px}
+.check{list-style:none;padding-left:0}
+.check li{padding-left:30px;position:relative}
+.check li::before{content:"";position:absolute;left:0;top:5px;width:15px;height:15px;border:2px solid var(--trail);border-radius:3px}
+footer{padding-block:26px;color:var(--muted);font-size:14px}
+@media print{body{font-size:11.5pt;padding-block:0}section{padding-block:16px 4px}tr,li,.col,.pillars div{break-inside:avoid}.tbl{overflow:visible}
+  .north,.tag,.note,.alert,.pillars div{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Start-Up Chile · BIG 13 · Comparativa</div>
+  <h1>El plan de Jordan frente a la postulación de Ciber Stak</h1>
+  <p class="lead">Jordan envió su «Plan de Trabajo: Proyecto LibrePedal». Aquí lo comparamos con lo que piden las bases y con la postulación de Ciber Stak: qué suma, qué resta, y cuál es la mejor forma de presentar una sola postulación.</p>
+  <div class="north">
+    <b>El norte</b>
+    <p>Una sola postulación de Ciber Stak con LibrePedal App: la app del cicloviajero que conecta ciclistas con talleres, tiendas, hospedajes y eventos. Inty líder, Jordan ejecutor a cargo de comunidad, eventos y red de talleres.</p>
+  </div>
+  <div class="summary">
+    <strong>En corto</strong>
+    <ul>
+      <li><strong>Ya tenemos con qué:</strong> 1.664 usuarios, app en Google Play, el EBM con 35 ciclistas y 12 auspiciadores, más de $2 millones invertidos sin sueldos, un líder con 5 años de ControlSolar y ningún ganador de ciclismo antes. Todo está en el KM 1.</li>
+      <li><strong>Suma mucho:</strong> la comunidad y los eventos (EBM), unificar las redes, la tienda virtual y el taller como primer aliado. Eso fortalece crecimiento, tracción y el modelo de ingresos.</li>
+      <li><strong>Resta si va tal cual:</strong> el plan dice que Jordan es accionista de Ciber Stak, y hoy no lo es; dice que los fondos se reparten «por mutuo acuerdo», y las bases exigen gastarlos según el presupuesto aprobado; y mezcla textil y metalurgia, que no son base tecnológica.</li>
+      <li><strong>La mejor proyección:</strong> tomar lo mejor del plan de Jordan dentro del proyecto de la app y dejar la fabricación textil y metalúrgica para otro fondo del taller. Con eso la nota estimada sube de 5,1 hacia 5,5 y, con las mejoras pendientes, cerca de 6.</li>
+    </ul>
+  </div>
+  <p class="meta">13-11-2026. Las notas son estimaciones nuestras con la pauta de las bases, no notas oficiales.</p>
+</header>
+
+<section>
+  <div class="sec-head"><span class="km">KM 0</span><h2>Qué propone el plan de Jordan</h2></div>
+  <ul>
+    <li><strong>Visión:</strong> hacer crecer LibrePedal con el cicloturismo como motor económico y comunitario, sobre cuatro pilares: taller y mantenimiento; desarrollo textil (bolsos, alforjas y vestimenta); metalurgia (bicicletas a medida, portabultos, parrillas, manubrios); y ecosistema digital con la app.</li>
+    <li><strong>Áreas:</strong> desarrollo digital a cargo de Inty (la app, libre uso de logos e imágenes, y una tienda virtual en conjunto); comunidad y eventos a cargo del equipo LibrePedal (una cuenta oficial por red social, EBM, talleres y capacitaciones); producción y taller a cargo del equipo técnico.</li>
+    <li><strong>Legal:</strong> postular con Ciber Stak, a nombre de Inty, donde Jordan figuraría como accionista y dueño de la marca LibrePedal. Si se gana, el destino de los fondos se decide por mutuo acuerdo.</li>
+    <li><strong>Tareas cortas:</strong> unificar las redes, activarlas en modo creador para monetizar, armar un calendario de contenidos y usar esos ingresos para sueldos, software y equipos.</li>
+  </ul>
+  <p class="src">Al final del documento quedó una pregunta de un asistente de IA («¿Te gustaría que agreguemos plazos…?»). Hay que sacarla antes de usar el texto en cualquier parte.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">KM 1</span><h2>Todo lo que ya suma a la postulación</h2></div>
+  <p>Esto es lo que reunimos y estudiamos. Todo tiene respaldo (Firebase, Google Play, el historial del código, el Registro de Empresas o fuentes públicas) y va en la postulación sí o sí.</p>
+
+  <h3>Tracción de la app</h3>
+  <div class="tbl"><table>
+    <tr><th>Dato</th><th>Valor</th><th>Fuente</th></tr>
+    <tr><td>Usuarios desde el 30-06-2026</td><td><strong>1.664</strong></td><td>Firebase</td></tr>
+    <tr><td>Usuarios con cuenta</td><td>148</td><td>Firebase</td></tr>
+    <tr><td>Cuentas nuevas en la última semana medida</td><td>42</td><td>Firebase</td></tr>
+    <tr><td>Kilómetros registrados en la app</td><td>1.525 km</td><td>Firebase</td></tr>
+    <tr><td>Instalaciones en Google Play</td><td>62 (34 en los últimos 28 días)</td><td>Google Play Console</td></tr>
+    <tr><td>Usuarios activos al mes en Google Play</td><td>22</td><td>Google Play Console</td></tr>
+    <tr><td>Suscripción activa en Google Play</td><td>$3.000 al mes o $30.000 al año, desde el 26-10-2026</td><td>Google Play Console</td></tr>
+    <tr><td>Suscriptores pagando</td><td>0 (el punto más débil)</td><td>Google Play Console</td></tr>
+  </table></div>
+
+  <h3>Tracción de comunidad (lo que aporta Jordan)</h3>
+  <ul>
+    <li><strong>EBM, Epic Bikepacking Maule:</strong> creado por Jordan, dos ediciones. La segunda, del 9 al 12-10-2026, reunió unos 35 ciclistas en unos 200 km por el Maule, con 12 auspiciadores. Se autofinanció con inscripciones y auspicios y dejó un pequeño excedente. El resumen oficial del evento le agradece «principalmente» a Jordan.</li>
+    <li><strong>Taller Libre Pedal:</strong> un negocio real que ya vende, primer aliado de la red de talleres.</li>
+    <li><strong>Vicente:</strong> fisioterapeuta, probó la app en sus viajes y valida las funciones de salud.</li>
+  </ul>
+
+  <h3>Producto y desarrollo</h3>
+  <ul>
+    <li>App publicada en Google Play desde el 19-10-2026, lista para 14 países.</li>
+    <li>Navegación con voz (Pistero) que funciona sin señal, detección de caídas, SOS, pelotón de hasta 30 ciclistas con radio, pulsómetro y potenciómetro por Bluetooth, talleres, hospedajes, campings y rodadas.</li>
+    <li>2.243 cambios al código en 93 días; entre 1.080 y 1.175 horas de trabajo a 55 a 60 horas por semana.</li>
+    <li>Operar la app cuesta entre $206.000 y $234.000 al mes y los servidores cuestan $0 (Cloudflare usa unas 3.500 de 100.000 solicitudes diarias): crecer cuesta poco.</li>
+  </ul>
+
+  <h3>Compromiso: todo autogestionado</h3>
+  <ul>
+    <li>Entre $2.115.000 y $2.255.000 invertidos (gastos más el notebook de trabajo), sin sueldos, sin inversionistas y sin fondos públicos.</li>
+    <li>Valor de referencia de las horas puestas: unos $5.850.000.</li>
+  </ul>
+
+  <h3>El líder</h3>
+  <ul>
+    <li>Técnico en Energías Renovables No Convencionales y Eficiencia Energética, Duoc UC (2018).</li>
+    <li>Fundador de ControlSolar (2019 a 2024): energía solar con automatización, sensores y monitoreo. Es la misma base técnica de las caídas, el Bluetooth y el GPS de la app.</li>
+    <li>Pesa en Equipo (20 %), en Líder (30 % de la entrevista) y en el desempate.</li>
+  </ul>
+
+  <h3>Lo que muestra el estudio de ganadores</h3>
+  <ul>
+    <li>Gana entre el 5 y el 7 % de los que postulan; en Build, unas 17 o 18 startups por convocatoria.</li>
+    <li>De cada 18 ganadores de Build, unos 6 a 8 venden directo a personas, como LibrePedal. Se puede ganar siendo B2C.</li>
+    <li>Entre el 45 y el 60 % de los ganadores usa IA; Pistero es IA aplicada al ciclismo.</li>
+    <li>Ningún ganador de Build en ciclismo o movilidad: es un espacio libre.</li>
+    <li>LibrePedal va más avanzada que el ganador típico de Build, que suele estar entre idea validada y prototipo.</li>
+    <li>Competencia en Chile: Bikleta (unos 20.000 usuarios) y Bikfy (más de 13.000 bicicletas registradas). Ninguna junta navegación con voz, seguridad, pelotón y servicios.</li>
+  </ul>
+
+  <h3>Elegibilidad en orden</h3>
+  <ul>
+    <li>Inicio comercial el 30-06-2026, dentro de los 12 meses que piden las bases.</li>
+    <li>Ciber Stak tiene objeto social tecnológico desde su constitución (02-09-2026) y es dueña del proyecto.</li>
+    <li>Ninguna empresa de Inty recibió fondos Corfo antes, así que nada lo inhabilita.</li>
+    <li>SII, Registro de Empresas, Google Play y Firebase coinciden.</li>
+  </ul>
+
+  <h3>Lo que falta para subir la nota (de 5,1 hacia 6)</h3>
+  <ol>
+    <li>Primeros suscriptores pagando, empezando por los ciclistas del EBM.</li>
+    <li>Cartas de interés de talleres, hospedajes, campings y auspiciadores que pagarían la cuota anual.</li>
+    <li>Plan de crecimiento con números y siguiente región.</li>
+    <li>Un mentor y una recomendación externa, ojalá de alguien que pasó por Start-Up Chile.</li>
+    <li>Costo por usuario y cómo escala.</li>
+    <li>Video de 90 segundos con la app en ruta.</li>
+    <li>Mercado con fuentes: cuántos ciclistas, talleres y hospedajes hay en Chile.</li>
+    <li>Un canal hacia empresas: clubes, municipios y aseguradoras, que es lo que más gana en Build.</li>
+    <li>Preparar la entrevista para «Alcance en Chile», que pesa entre 20 y 30 %.</li>
+  </ol>
+  <p class="src">El sello de la Ley 21.561 suma un 5 %, pero pide trabajadores con contrato; una SpA sin trabajadores probablemente no califica.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">KM 2</span><h2>Lo que suma y lo que resta</h2></div>
+  <div class="cols">
+    <div class="col plus">
+      <h3>Suma</h3>
+      <ul>
+        <li><strong>Comunidad y eventos</strong> (EBM, rodadas, capacitaciones): es la mejor prueba de tracción y el canal para conseguir usuarios. Pesa en Crecimiento (15 %) y Tracción (10 %).</li>
+        <li><strong>Una cuenta oficial por red social:</strong> ordena la marca y muestra una comunidad real. Fácil de hacer antes del 24-11.</li>
+        <li><strong>Tienda virtual dentro de la app:</strong> agrega una fuente de ingresos que escala (comisión por venta), y eso pesa en Escalabilidad y Modelo de negocio.</li>
+        <li><strong>El taller como primer aliado:</strong> Taller Libre Pedal es el piloto de la red de talleres que ya propone la app.</li>
+        <li><strong>Roles claros:</strong> Inty en tecnología, Jordan en comunidad y terreno. Coincide con la opción A.</li>
+        <li><strong>Visión de cicloturismo como economía local:</strong> sirve para Impacto en Chile (10 %) y para el Alcance en Chile de la entrevista.</li>
+      </ul>
+    </div>
+    <div class="col minus">
+      <h3>Resta</h3>
+      <ul>
+        <li><strong>Jordan «accionista»:</strong> el Registro de Empresas muestra a Inty con el 100 %. Declarar otra cosa es una inconsistencia que el Anexo 3 castiga y puede dejar fuera la postulación.</li>
+        <li><strong>Fondos «por mutuo acuerdo»:</strong> el subsidio se gasta solo en lo que aprueba Corfo y se rinde boleta por boleta. No se puede repartir ni destinar al taller.</li>
+        <li><strong>Textil y metalurgia:</strong> Build financia software o base tecnológica. Fabricar alforjas o bicicletas diluye el proyecto y baja Producto y Base tecnológica.</li>
+        <li><strong>Marca «dueño Jordan»:</strong> si la app de Ciber Stak usa una marca de otra persona, hay que dejar por escrito una licencia o cesión, o el proyecto no es dueño de su nombre.</li>
+        <li><strong>Monetizar redes como ingreso principal:</strong> es un ingreso chico e incierto. Sirve como extra, no como modelo de negocio.</li>
+        <li><strong>Sin metas ni plazos:</strong> no trae cifras, fechas ni indicadores, que es lo que miden los evaluadores.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">KM 3</span><h2>Punto por punto frente a las bases</h2></div>
+  <div class="tbl"><table>
+    <tr><th>Punto del plan</th><th>Qué dicen las bases</th><th>Estado</th><th>Cómo encajarlo</th></tr>
+    <tr><td>App y ecosistema digital</td><td>Build pide software o base tecnológica</td><td><span class="tag ok">suma</span></td><td>Es el centro del proyecto</td></tr>
+    <tr><td>Comunidad, eventos y EBM</td><td>Crecimiento 15 %, tracción 10 %</td><td><span class="tag ok">suma</span></td><td>Canal de adquisición de usuarios, con metas por evento</td></tr>
+    <tr><td>Una cuenta oficial por red</td><td>Coherencia de marca y tracción</td><td><span class="tag ok">suma</span></td><td>Hacerlo ya y mostrar seguidores en la postulación</td></tr>
+    <tr><td>Tienda virtual</td><td>Escalabilidad 15 %, modelo de negocio</td><td><span class="tag ok">suma</span></td><td>Marketplace en la app con comisión por venta</td></tr>
+    <tr><td>Taller y mantenimiento</td><td>No es base tecnológica</td><td><span class="tag mid">adaptar</span></td><td>Como primer taller aliado de la red, no como actividad del proyecto</td></tr>
+    <tr><td>Textil y metalurgia</td><td>No es base tecnológica</td><td><span class="tag mid">adaptar</span></td><td>Sus productos se venden en la tienda de la app; la fabricación va a otro fondo del taller</td></tr>
+    <tr><td>Monetizar redes</td><td>Ingresos del modelo de negocio</td><td><span class="tag mid">adaptar</span></td><td>Ingreso extra; el principal es la suscripción, la cuota de negocios y la comisión</td></tr>
+    <tr><td>Jordan accionista de Ciber Stak</td><td>Anexo 3: lo declarado tiene que calzar con los registros</td><td><span class="tag bad">riesgo</span></td><td>O se hace la cesión de acciones inscrita antes de postular, o no se declara</td></tr>
+    <tr><td>Marca a nombre de Jordan</td><td>El proyecto debe ser dueño de lo que presenta</td><td><span class="tag bad">riesgo</span></td><td>Revisar en INAPI y firmar licencia o cesión a Ciber Stak</td></tr>
+    <tr><td>Fondos por mutuo acuerdo</td><td>Gasto según presupuesto aprobado y rendición</td><td><span class="tag bad">riesgo</span></td><td>Acordar entre ustedes el uso dentro del presupuesto, no fuera de él</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">KM 4</span><h2>Cómo cambia la nota</h2></div>
+  <div class="tbl"><table>
+    <tr><th>Criterio</th><th>Peso</th><th>Postulación actual</th><th>Con el plan de Jordan tal cual</th><th>Con la mejor proyección</th></tr>
+    <tr><td>Equipo</td><td>20 %</td><td>Bien</td><td><span class="tag bad">baja</span> por la inconsistencia en las acciones</td><td><span class="tag ok">sube</span> roles claros y trayectoria</td></tr>
+    <tr><td>Mercado</td><td>15 %</td><td>Medio</td><td><span class="tag mid">igual</span></td><td><span class="tag ok">sube</span> cicloturismo con talleres y tiendas</td></tr>
+    <tr><td>Producto</td><td>15 %</td><td>Bien</td><td><span class="tag bad">baja</span> se diluye en cuatro rubros</td><td><span class="tag ok">igual o sube</span> app más tienda</td></tr>
+    <tr><td>Escalabilidad</td><td>15 %</td><td>Medio</td><td><span class="tag bad">baja</span> fabricar no escala</td><td><span class="tag ok">sube</span> comisión y cuotas</td></tr>
+    <tr><td>Estrategia de crecimiento</td><td>15 %</td><td>Medio</td><td><span class="tag ok">sube</span> comunidad y redes</td><td><span class="tag ok">sube</span> eventos con metas</td></tr>
+    <tr><td>Tracción</td><td>10 %</td><td>Baja (0 pagos)</td><td><span class="tag mid">igual</span></td><td><span class="tag ok">sube</span> si llegan cartas y primeros pagos</td></tr>
+    <tr><td>Impacto en Chile</td><td>10 %</td><td>Medio</td><td><span class="tag ok">sube</span></td><td><span class="tag ok">sube</span> economía local del cicloturismo</td></tr>
+    <tr><td><strong>Nota estimada</strong></td><td></td><td><strong>5,1</strong></td><td><strong>4,5 a 5,0</strong>, con riesgo de quedar fuera por inconsistencias</td><td><strong>5,5</strong>, y cerca de <strong>6</strong> con las mejoras pendientes</td></tr>
+  </table></div>
+  <p class="src">Estimaciones nuestras con la pauta de las bases. Sirven para comparar caminos, no son una predicción oficial.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">KM 5</span><h2>La mejor proyección de la postulación</h2></div>
+  <p><strong>La frase del proyecto:</strong> LibrePedal App es la app del cicloviajero: lo guía con voz, lo cuida en la ruta y lo conecta con talleres, tiendas, hospedajes y eventos de cicloturismo.</p>
+  <h3>Lo que entra al proyecto</h3>
+  <div class="pillars">
+    <div><b>La app</b><span>Navegación con voz, seguridad, pelotón y salud. Ya existe y está en Google Play.</span></div>
+    <div><b>Red de talleres</b><span>Talleres que pagan una cuota anual baja por aparecer. Taller Libre Pedal es el primero.</span></div>
+    <div><b>Tienda en la app</b><span>Marketplace con comisión: alforjas, bolsos, repuestos y accesorios de talleres y fabricantes aliados.</span></div>
+    <div><b>Comunidad y eventos</b><span>EBM, rodadas y capacitaciones como canal para sumar usuarios y suscriptores.</span></div>
+  </div>
+  <h3>Lo que queda fuera de esta postulación</h3>
+  <p>La fabricación textil y metalúrgica y la operación del taller. Son buenas ideas, pero no son base tecnológica. LibrePedal SpA (el taller) puede llevarlas a Sercotec o a un fondo regional, que además no tienen la espera de 12 meses. Sus productos sí pueden venderse en la tienda de la app.</p>
+  <h3>Equipo</h3>
+  <div class="tbl"><table>
+    <tr><th>Persona</th><th>Rol</th><th>A cargo de</th></tr>
+    <tr><td>Inty</td><td>Líder (100 % de Ciber Stak)</td><td>Tecnología, app y tienda virtual</td></tr>
+    <tr><td>Jordan</td><td>Ejecutor</td><td>Comunidad, eventos, red de talleres, alianzas y redes sociales</td></tr>
+    <tr><td>Vicente</td><td>Ejecutor</td><td>Salud y pruebas en ruta</td></tr>
+  </table></div>
+  <h3>Ingresos</h3>
+  <ul>
+    <li>Suscripción del ciclista: $3.000 al mes o $30.000 al año.</li>
+    <li>Cuota anual de negocios: unos $10.000 por taller, hospedaje, camping u organizador.</li>
+    <li>Comisión por venta en la tienda de la app.</li>
+    <li>Ingresos de redes sociales, como extra.</li>
+  </ul>
+  <h3>Plan de 4 meses (si se gana)</h3>
+  <div class="tbl"><table>
+    <tr><th>Mes</th><th>Qué se hace</th><th>Cómo se mide</th></tr>
+    <tr><td>1</td><td>Redes unificadas, red de talleres en el Maule, diseño de la tienda</td><td>Talleres con cuota pagada</td></tr>
+    <tr><td>2</td><td>Tienda en la app con los primeros productos de aliados</td><td>Productos publicados y primeras ventas</td></tr>
+    <tr><td>3</td><td>Evento o rodada con la app como canal de inscripción</td><td>Usuarios nuevos y suscriptores</td></tr>
+    <tr><td>4</td><td>Medir y abrir una segunda región de cicloturismo</td><td>Ingresos al mes y retención</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="km">META</span><h2>Lo que hay que resolver antes del 23-11</h2></div>
+  <ul class="check">
+    <li><strong>Acciones:</strong> decidir si Jordan entra como accionista. Si entra, la cesión tiene que quedar inscrita en el Registro de Empresas y avisada al SII antes de postular, e Inty debe seguir con al menos el 10 %. Si no, el plan no puede decir que es accionista.</li>
+    <li><strong>Marca:</strong> revisar en el buscador de INAPI si «LibrePedal» está registrada y a nombre de quién, y dejar por escrito que Ciber Stak puede usarla en la app.</li>
+    <li><strong>Uso de los fondos:</strong> acordar por escrito que el subsidio se usa solo en el presupuesto aprobado del proyecto de la app.</li>
+    <li><strong>Redes:</strong> unificar las cuentas oficiales y anotar los seguidores para la postulación.</li>
+    <li><strong>Hasta el 17-11:</strong> datos de Jordan y de Vicente (apellidos, nacionalidad, estudios, años de experiencia, horas por semana) y sus gastos.</li>
+    <li><strong>Pendientes que ya teníamos:</strong> cartas de interés, primeros suscriptores, mentor, video de 90 segundos y envío el 23-11.</li>
+  </ul>
+  <p class="src">Buscador oficial de marcas: <a href="https://www.inapi.cl">inapi.cl</a> · Trámite de registro: <a href="https://www.chileatiende.gob.cl/fichas/1633">ChileAtiende, registro de marcas comerciales</a></p>
+</section>
+
+<footer>Preparado para Inty y Jordan, 13-11-2026, a partir del «Plan de Trabajo: Proyecto LibrePedal» de Jordan y las bases de Start-Up Chile (texto refundido, noviembre de 2026). Las notas son estimaciones del equipo.</footer>
+</div>
+
+</body></html>
