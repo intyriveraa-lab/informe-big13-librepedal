@@ -103,10 +103,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <div class="summary">
     <strong>En corto</strong>
     <ul>
-      <li><strong>Ya tenemos con qué:</strong> 1.664 usuarios, app en Google Play, el EBM con 35 ciclistas y 12 auspiciadores, más de $2 millones invertidos sin sueldos, un líder con 5 años de ControlSolar y ningún ganador de ciclismo antes. Todo está en el KM 1.</li>
+      <li><strong>Ya tenemos con qué:</strong> 102 personas con perfil completo, 3.370 km registrados, app en Google Play con 22 dispositivos activos al mes, el EBM con 35 ciclistas y 12 auspiciadores, más de $2 millones invertidos sin sueldos, un líder con 5 años de ControlSolar y ningún ganador de ciclismo antes. Todo está en el KM 1.</li>
       <li><strong>Suma mucho:</strong> la comunidad y los eventos (EBM), unificar las redes, la tienda virtual y el taller como primer aliado. Eso fortalece crecimiento, tracción y el modelo de ingresos.</li>
       <li><strong>Resta si va tal cual:</strong> el plan dice que Jordan es accionista de Ciber Stak, y hoy no lo es; dice que los fondos se reparten «por mutuo acuerdo», y las bases exigen gastarlos según el presupuesto aprobado; y mezcla textil y metalurgia, que no son base tecnológica.</li>
-      <li><strong>La mejor proyección:</strong> tomar lo mejor del plan de Jordan dentro del proyecto de la app y dejar la fabricación textil y metalúrgica para otro fondo del taller. Con eso la nota estimada sube de 5,1 hacia 5,5 y, con las mejoras pendientes, cerca de 6.</li>
+      <li><strong>La mejor proyección:</strong> tomar lo mejor del plan de Jordan dentro del proyecto de la app y dejar la fabricación textil y metalúrgica para otro fondo del taller. Con eso la nota estimada sube sobre el 5,1 y, con las mejoras pendientes, puede llegar cerca de 6.</li>
     </ul>
   </div>
   <p class="meta">13-11-2026. Las notas son estimaciones nuestras con la pauta de las bases, no notas oficiales.</p>
@@ -130,15 +130,16 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <h3>Tracción de la app</h3>
   <div class="tbl"><table>
     <tr><th>Dato</th><th>Valor</th><th>Fuente</th></tr>
-    <tr><td>Usuarios desde el 30-06-2026</td><td><strong>1.664</strong></td><td>Firebase</td></tr>
-    <tr><td>Usuarios con cuenta</td><td>148</td><td>Firebase</td></tr>
-    <tr><td>Cuentas nuevas en la última semana medida</td><td>42</td><td>Firebase</td></tr>
-    <tr><td>Kilómetros registrados en la app</td><td>1.525 km</td><td>Firebase</td></tr>
-    <tr><td>Instalaciones en Google Play</td><td>62 (34 en los últimos 28 días)</td><td>Google Play Console</td></tr>
-    <tr><td>Usuarios activos al mes en Google Play</td><td>22</td><td>Google Play Console</td></tr>
+    <tr><td>Personas con perfil completo en la app (al 13-11-2026)</td><td><strong>102</strong></td><td>Firestore, colección de perfiles: 117 perfiles, menos 15 de prueba del equipo</td></tr>
+    <tr><td>Kilómetros registrados en la app por la comunidad</td><td><strong>3.370</strong></td><td>Cifra en vivo de librepedal.cl (incluye los perfiles de prueba)</td></tr>
+    <tr><td>Cuentas anónimas (se crean solas al abrir la app sin registrarse)</td><td>1.517</td><td>Firebase Authentication; no son personas</td></tr>
+    <tr><td>Instalaciones en Google Play, últimos 28 días</td><td>34</td><td>Google Play Console</td></tr>
+    <tr><td>Dispositivos activos al mes en Google Play</td><td>22</td><td>Google Play Console</td></tr>
+    <tr><td>Dispositivos con la app instalada (máximo, noviembre)</td><td>unos 60</td><td>Google Play Console, estadísticas</td></tr>
     <tr><td>Suscripción activa en Google Play</td><td>$3.000 al mes o $30.000 al año, desde el 26-10-2026</td><td>Google Play Console</td></tr>
     <tr><td>Suscriptores pagando</td><td>0 (el punto más débil)</td><td>Google Play Console</td></tr>
   </table></div>
+  <p class="src">Cómo leer estas cifras: la cifra de personas es 102, las que completaron su perfil en la app, sin contar 15 perfiles de prueba del equipo. Firebase muestra 1.665 cuentas, pero 1.517 son anónimas (se crean solas al abrir la app) y casi ninguna volvió otro día, así que no se pueden presentar como usuarios. No existe un registro aparte de correos: la única fuente de usuarios es la base de datos de la app. Firebase Analytics no está activo. En la postulación conviene decirlo así: 102 personas con perfil, 3.370 km registrados y 22 dispositivos activos al mes en Google Play.</p>
 
   <h3>Tracción de comunidad (lo que aporta Jordan)</h3>
   <ul>
@@ -149,15 +150,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
   <h3>Producto y desarrollo</h3>
   <ul>
-    <li>App publicada en Google Play desde el 19-10-2026, lista para 14 países.</li>
+    <li>App publicada en Google Play desde el 19-10-2026, publicada en Google Play en 11 países, con voz y jerga para 14.</li>
     <li>Navegación con voz (Pistero) que funciona sin señal, detección de caídas, SOS, pelotón de hasta 30 ciclistas con radio, pulsómetro y potenciómetro por Bluetooth, talleres, hospedajes, campings y rodadas.</li>
-    <li>2.243 cambios al código en 93 días; entre 1.080 y 1.175 horas de trabajo a 55 a 60 horas por semana.</li>
+    <li>2.243 cambios al código en 92 días de trabajo; entre 1.080 y 1.175 horas de trabajo a 55 a 60 horas por semana.</li>
     <li>Operar la app cuesta entre $206.000 y $234.000 al mes y los servidores cuestan $0 (Cloudflare usa unas 3.500 de 100.000 solicitudes diarias): crecer cuesta poco.</li>
   </ul>
 
   <h3>Compromiso: todo autogestionado</h3>
   <ul>
-    <li>Entre $2.115.000 y $2.255.000 invertidos (gastos más el notebook de trabajo), sin sueldos, sin inversionistas y sin fondos públicos.</li>
+    <li>Entre $2.105.000 y $2.245.000 invertidos (gastos más el notebook de trabajo), sin sueldos, sin inversionistas y sin fondos públicos.</li>
     <li>Valor de referencia de las horas puestas: unos $5.850.000.</li>
   </ul>
 
@@ -175,7 +176,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <li>Entre el 45 y el 60 % de los ganadores usa IA; Pistero es IA aplicada al ciclismo.</li>
     <li>Ningún ganador de Build en ciclismo o movilidad: es un espacio libre.</li>
     <li>LibrePedal va más avanzada que el ganador típico de Build, que suele estar entre idea validada y prototipo.</li>
-    <li>Competencia en Chile: Bikleta (unos 20.000 usuarios) y Bikfy (más de 13.000 bicicletas registradas). Ninguna junta navegación con voz, seguridad, pelotón y servicios.</li>
+    <li>Competencia en Chile: Bikleta (unos 20.000 usuarios) y Bikfy (más de 13.000 bicicletas registradas). Hay que comparar sus funciones con las de LibrePedal antes de afirmar en la postulación en qué se diferencia.</li>
   </ul>
 
   <h3>Elegibilidad en orden</h3>
@@ -196,7 +197,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <li>Video de 90 segundos con la app en ruta.</li>
     <li>Mercado con fuentes: cuántos ciclistas, talleres y hospedajes hay en Chile.</li>
     <li>Un canal hacia empresas: clubes, municipios y aseguradoras, que es lo que más gana en Build.</li>
-    <li>Preparar la entrevista para «Alcance en Chile», que pesa entre 20 y 30 %.</li>
+    <li>Preparar la entrevista para «Alcance en Chile», que pesa 30 % de la entrevista.</li>
   </ol>
   <p class="src">El sello de la Ley 21.561 suma un 5 %, pero pide trabajadores con contrato; una SpA sin trabajadores probablemente no califica.</p>
 </section>
@@ -257,7 +258,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <tr><td>Estrategia de crecimiento</td><td>15 %</td><td>Medio</td><td><span class="tag ok">sube</span> comunidad y redes</td><td><span class="tag ok">sube</span> eventos con metas</td></tr>
     <tr><td>Tracción</td><td>10 %</td><td>Baja (0 pagos)</td><td><span class="tag mid">igual</span></td><td><span class="tag ok">sube</span> si llegan cartas y primeros pagos</td></tr>
     <tr><td>Impacto en Chile</td><td>10 %</td><td>Medio</td><td><span class="tag ok">sube</span></td><td><span class="tag ok">sube</span> economía local del cicloturismo</td></tr>
-    <tr><td><strong>Nota estimada</strong></td><td></td><td><strong>5,1</strong></td><td><strong>4,5 a 5,0</strong>, con riesgo de quedar fuera por inconsistencias</td><td><strong>5,5</strong>, y cerca de <strong>6</strong> con las mejoras pendientes</td></tr>
+    <tr><td><strong>Nota estimada</strong></td><td></td><td><strong>5,1</strong></td><td><strong>Bajo 5,1</strong>, con riesgo de quedar fuera por inconsistencias</td><td><strong>Sobre 5,1</strong>, y cerca de <strong>6</strong> con las mejoras pendientes</td></tr>
   </table></div>
   <p class="src">Estimaciones nuestras con la pauta de las bases. Sirven para comparar caminos, no son una predicción oficial.</p>
 </section>
