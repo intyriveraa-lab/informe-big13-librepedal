@@ -71,9 +71,25 @@ tr:last-child td{border-bottom:0}
 .check li{padding-left:30px;position:relative}
 .check li::before{content:"";position:absolute;left:0;top:5px;width:15px;height:15px;border:2px solid var(--trail);border-radius:3px}
 footer{padding-block:26px;color:var(--muted);font-size:14px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--surface)}
+.listen-box{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:2px solid var(--trail);box-shadow:0 6px 20px rgba(0,0,0,.08);
+  margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));
+  padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px))}
+.listen-in{max-width:780px;margin:0 auto;display:flex;flex-wrap:wrap;gap:2px 10px;align-items:baseline}
+.listen-box strong{color:var(--trail)}
+.listen-box span{color:var(--muted);font-size:14px}
+.listen-box audio{width:100%;height:40px;margin-top:4px}
+@media print{.listen-box{display:none}}
 @media print{body{font-size:11.5pt;padding-block:0}section{padding-block:16px 4px}tr,li,.col,.pillars div{break-inside:avoid}.tbl{overflow:visible}
   .north,.tag,.note,.alert,.pillars div{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style>
+
+<div class="listen-box" role="region" aria-label="Reproductor de la comparativa">
+  <div class="listen-in">
+    <strong>Escucha la comparativa</strong> <span>completa, 16 minutos, con la voz del compadre de LibrePedal</span>
+    <audio id="audio" controls preload="metadata" src="Comparativa-plan-Jordan-BIG13.mp3"></audio>
+  </div>
+</div>
 
 <div class="wrap">
 <header>
